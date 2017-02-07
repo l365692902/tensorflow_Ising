@@ -241,3 +241,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/make_train_data/New Text Document.txt
+/tensorflow_Ising/Ising_N10_20000.npz
