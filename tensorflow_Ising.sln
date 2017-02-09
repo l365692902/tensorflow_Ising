@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "make_train_data", "make_tra
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MNIST_test", "MNIST_test\MNIST_test.pyproj", "{8E23B661-8510-44A4-B342-CE029B555F1E}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "legacy_Ising3", "legacy_Ising3\legacy_Ising3.pyproj", "{BF20C3FC-AD97-4852-A25A-A0A47DF4F128}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{C243E659-A1FC-466F-9970-6612AF736BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E23B661-8510-44A4-B342-CE029B555F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E23B661-8510-44A4-B342-CE029B555F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF20C3FC-AD97-4852-A25A-A0A47DF4F128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF20C3FC-AD97-4852-A25A-A0A47DF4F128}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
