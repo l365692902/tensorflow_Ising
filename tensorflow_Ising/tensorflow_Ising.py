@@ -27,11 +27,11 @@ def next_batch(images, labels, _batch_size = 100):
     #print('start: ',_start,' end: ',_end)
     return images[_start:_end],labels[_start:_end]
 
-data = np.load('./Ising_N10_20000.npz')
+data = np.load('./Ising_N10_full.npz')
 images = data['images']
 labels = data['labels']
-batch_size = 1
-hiden_units=3
+batch_size = 500
+hiden_units=30
 
 #images=np.array([[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]])
 #labels=np.array([[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]])
@@ -45,7 +45,7 @@ W1 = tf.Variable(tf.random_uniform([100,hiden_units]))
 b1 = tf.Variable(tf.random_uniform([hiden_units]))
 y1 = tf.matmul(x_image, W1) + b1
 y1=tf.sigmoid(y1)
-y1=tf.nn.dropout(y1,0.9)
+#y1=tf.nn.dropout(y1,0.9)
 #y1=tf.nn.relu(tf.matmul(x_image,W1)+b1)
 
 W2 = tf.Variable(tf.random_uniform([hiden_units,2]))
@@ -56,12 +56,12 @@ y2=tf.sigmoid(y2)
 #y2 = tf.nn.relu(tf.matmul(y1,W2) + b2)
 
 
-cross_entropy=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y2,y_label))
-#cross_entropy = tf.reduce_sum(-y_label * tf.log(y2) - (1.0 - y_label) * tf.log(1.0 - y2))#+0.05*(tf.nn.l2_loss(W1)+tf.nn.l2_loss(W2) )
+#cross_entropy=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y2,y_label))
+cross_entropy = tf.reduce_sum(-y_label * tf.log(y2) - (1.0 - y_label) * tf.log(1.0 - y2))#+0.05*(tf.nn.l2_loss(W1)+tf.nn.l2_loss(W2) )
 #cross_entropy=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y2,y_label))+0.05*(tf.nn.l2_loss(W1)+tf.nn.l2_loss(W2))
 
-#optimizer=tf.train.GradientDescentOptimizer(10)
-optimizer = tf.train.AdamOptimizer(0.4)
+#optimizer=tf.train.GradientDescentOptimizer(0.5)
+optimizer = tf.train.AdamOptimizer(0.0001)
 
 train = optimizer.minimize(cross_entropy)
 
@@ -77,12 +77,14 @@ for i in range(50000):
     if i < 100 or i % 50 == 0:
         batch_x,batch_y = next_batch(images,labels,batch_size)
         print(session.run(cross_entropy,feed_dict={x_image:batch_x,y_label:batch_y}))
+        #print(session.run(tf.nn.l2_loss(W1),feed_dict={x_image:batch_x,y_label:batch_y}))
         #print(session.run(y2,feed_dict={x_image:batch_x,y_label:batch_y}))
 
 prediction = tf.equal(tf.argmax(y2,1), tf.arg_max(y_label,1))
 accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32))
 batch_x,batch_y = next_batch(images,labels, 0)
 print(session.run(accuracy, feed_dict={x_image:batch_x, y_label:batch_y}))
+print(W1)#didn't print content, just some description
 
     
 
