@@ -27,9 +27,20 @@ def next_batch(images, labels, _batch_size = 100):
     #print('start: ',_start,' end: ',_end)
     return images[_start:_end],labels[_start:_end]
 
-data = np.load('./Ising_N10_full.npz')
+data = np.load('./Ising_N10_full_with_validation.npz')
 images = data['images']
 labels = data['labels']
+val_images=data['val_images']
+val_labels=data['val_labels']
+tra_per_T=int(data['tra_per_T'])
+val_per_T=int(data['val_per_T'])
+#print(tra_per_T,type(tra_per_T))
+#print(val_per_T,type(val_per_T))
+#print(val_images,type(val_images),val_images.shape)
+#print(val_labels,type(val_labels),val_labels.shape)
+#print(images,type(images),images.shape)
+#print(labels,type(labels),labels.shape)
+#exit()
 batch_size = 500
 hiden_units=30
 
@@ -84,7 +95,14 @@ prediction = tf.equal(tf.argmax(y2,1), tf.arg_max(y_label,1))
 accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32))
 batch_x,batch_y = next_batch(images,labels, 0)
 print(session.run(accuracy, feed_dict={x_image:batch_x, y_label:batch_y}))
-print(W1)#didn't print content, just some description
+#print(W1)#didn't print content, just some description
+
+val_start=0
+val_end=val_start+val_per_T
+for i in range(22):
+    print(i,session.run(accuracy,feed_dict={x_image:val_images[val_start:val_end,:],y_label:val_labels[val_start:val_end,:]}),val_start,val_end)
+    val_start+=val_per_T
+    val_end+=val_per_T
 
     
 

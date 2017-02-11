@@ -296,3 +296,5 @@ ModelManifest.xml
 /make_train_data/Ising_configuration_2/Ising_N10_T02.txt
 /make_train_data/Ising_configuration_2/Ising_N10_T01.txt
 /tensorflow_Ising/Ising_N10_full.npz
+/make_train_data/Ising_N10_full_with_validation.npz
+/tensorflow_Ising/Ising_N10_full_with_validation.npz
